@@ -1,67 +1,115 @@
-# LOGISTPULSE-GOLDEN V1.0
+# LOGISTPULSE — Resiliencia y evolución EDA
 
-**Independent LOGISTdragon universe — Operations, Logistics, IoT and Platform Engineering laboratory.**
+**Pablo Galarza — Desarrollo de Software Moderno, USFQ**
 
-LOGISTPULSE simulates a national restaurant/retail operation with 300 stores, distribution centers, fleet telemetry, kitchen equipment and event-driven order fulfillment. It is intentionally independent from BANKdragon/BANKPULSE.
+Implementación y comprobación de cuatro casos de arquitectura dirigida por eventos con Java 21, Spring Boot y RabbitMQ.
 
-## Product domains
+## Entrega
 
-- **Smart Inventory** — stock, forecast and stockout risk.
-- **Supply & Distribution** — trucks, ETA and cold chain.
-- **Smart Operations** — MQTT equipment telemetry and operational state.
-- **Order Fulfillment** — event-driven kitchen queue using Kafka-compatible Redpanda.
+- [Informe: resultados, respuestas y conclusión](laboratorio-eda/INFORME.md)
+- [Código y guía del laboratorio](laboratorio-eda/)
+- [Evidencias de ejecución](laboratorio-eda/evidencias/)
 
-## Architecture
+La implementación de esta entrega está en `laboratorio-eda/`. Su archivo de ejecución es `laboratorio-eda/docker-compose.yml`.
 
-```text
-Browser / Operations Console :8080
-          |
-       Nginx Edge
-          |
-  +-------+---------+-----------+
-  |       |         |           |
-Inventory Distribution Operations Fulfillment
-  |       |         |           |
-Postgres Postgres  MongoDB    Postgres
-                    ^           |
-                    |           v
-                  MQTT       Redpanda
-                    ^           |
-              Telemetry      Worker
-              Simulator
+## Ejecutar
 
-Prometheus + Grafana + cAdvisor observe the runtime.
-```
+Requisitos: Docker con Docker Compose v2 y Python 3 para generar los datos de la prueba de duplicados.
 
-## Start
+Desde la raíz del repositorio:
 
 ```bash
-cp .env.example .env
-docker compose up -d --build
+cd laboratorio-eda
+docker compose up --build -d
 docker compose ps
-bash scripts/smoke.sh
 ```
 
-Open Codespaces port **8080**.
+Docker compila las aplicaciones con Java y Maven dentro de las imágenes.
 
-## Observability
+Para observar el arranque:
 
 ```bash
-docker compose -f observability/compose.yaml up -d
+docker compose logs -f inventory-service recommendation-service audit-service
 ```
 
-- Grafana `3000` — `admin / logistpulse_demo`
-- Prometheus `9090`
-- cAdvisor `8088`
+Espera las líneas de inicio `Started`. Sal de los logs con `Ctrl + C`; los servicios continuarán ejecutándose.
 
-## Git/CI model
+## Servicios y puertos
 
-Work through feature branches and Pull Requests. `.github/workflows/ci.yml` validates the architecture contract, Compose configuration, builds the distributed stack and runs smoke tests before merge.
+| Servicio | Puerto accesible | Función |
+|---|---|---|
+| inventory-service | 8080 | Recibir lecturas de inventario y publicar eventos de riesgo |
+| recommendation-service | 8081 | Procesar eventos y consultar recomendaciones |
+| audit-service | Sin puerto HTTP publicado | Registrar los eventos recibidos |
+| RabbitMQ | 5672 | Comunicación AMQP |
+| Consola de RabbitMQ | 15672 | Inspeccionar exchanges y colas |
 
-## Academic ownership
+Credenciales de RabbitMQ para este laboratorio: usuario `lab`, contraseña `lab123`.
 
-Design of Systems teams own frontend/backend product evolution. Software Development teams act as DevOps/Platform teams: Codespaces, CI/CD, containerization, integration readiness, observability and later DevSecOps security gates.
+## APIs
 
-See `docs/` for C4, data ownership, missions and incident runbooks.
+| Puerto | Método | Ruta |
+|---|---|---|
+| 8080 | POST | `/api/inventory/stock` |
+| 8081 | GET | `/api/recommendations/health` |
+| 8081 | GET | `/api/recommendations` |
+| 8081 | GET | `/api/recommendations?eventId=IDENTIFICADOR` |
 
+Comprobar la API desde la terminal del Codespace:
 
+```bash
+curl -fsS http://localhost:8081/api/recommendations/health
+```
+
+Cuando `available <= minimum`, inventario publica un evento y devuelve su `eventId`. El procesamiento de los consumidores es asíncrono.
+
+## Arquitectura
+
+```mermaid
+flowchart TD
+    I["inventory-service"] --> E["logistpulse.events"]
+    E --> QR["recommendation.stockout-risk.q"]
+    E --> QA["audit.stockout-risk.q"]
+    QR --> R["recommendation-service"]
+    QA --> A["audit-service"]
+    QR -->|Rechazo tras tres intentos| D["logistpulse.dlx"]
+    D --> QD["recommendation.stockout-risk.dlq"]
+```
+
+- Routing key de publicación: `inventory.stockout-risk.detected`.
+- Routing key hacia la DLQ: `recommendation.stockout-risk.failed`.
+- Recomendaciones y auditoría utilizan colas independientes.
+- Recomendaciones realiza hasta tres intentos, con una pausa fija de un segundo entre intentos.
+
+## Casos comprobados
+
+| Caso | Resultado | Evidencias |
+|---|---|---|
+| Consumidor detenido | Diez eventos acumulados y procesados tras reanudarlo | [Caso 1](laboratorio-eda/evidencias/caso-1/) |
+| Dos consumidores | Un mismo evento recibido por recomendaciones y auditoría | [Caso 2](laboratorio-eda/evidencias/caso-2/) |
+| Fallo controlado | Tres intentos, mensaje en DLQ y procesamiento posterior de un evento válido | [Caso 3](laboratorio-eda/evidencias/caso-3/) |
+| Evento duplicado | Dos entregas, una recomendación y un duplicado ignorado | [Caso 4](laboratorio-eda/evidencias/caso-4/) |
+
+El [informe](laboratorio-eda/INFORME.md) contiene la tabla detallada, las respuestas y las mejoras propuestas para un entorno real.
+
+## Alcance de la idempotencia
+
+Las recomendaciones se guardan en un `ConcurrentHashMap`, utilizando `eventId` como clave y `putIfAbsent` para registrar de forma atómica.
+
+La protección corresponde a una instancia en ejecución. El registro se pierde al reiniciar la aplicación y no se comparte entre varias instancias.
+
+El script `laboratorio-eda/scripts/preparar_duplicado.py` genera los archivos utilizados en la prueba del caso 4.
+
+## Detener los servicios
+
+Desde `laboratorio-eda`:
+
+```bash
+docker compose stop
+```
+
+## Procedencia
+
+El código inicial de EDA procede de [randUSFQ/LABEDA](https://github.com/randUSFQ/LABEDA), archivo `rabbitmq-logistpulse-lab (4).zip`.
+
+Este repositorio se creó como fork de [LOGISTPULSE-GOLDEN](https://github.com/randUSFQ/LOGISTPULSE-GOLDEN). Para esta entrega se utiliza exclusivamente el laboratorio ubicado en `laboratorio-eda/`.
