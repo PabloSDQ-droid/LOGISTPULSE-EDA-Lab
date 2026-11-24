@@ -1,0 +1,6 @@
+Timeout: 60.0 seconds ...
+Listing queues for vhost / ...
+name	messages_ready	messages_unacknowledged
+recommendation.stockout-risk.q	0	0
+audit.stockout-risk.q	0	0
+recommendation.stockout-risk.dlq	1	0

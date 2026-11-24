@@ -1,10 +1,17 @@
-# LOGISTPULSE — Resiliencia y evolución EDA
+# LOGISTPULSE — Laboratorios EDA
 
 **Pablo Galarza — Desarrollo de Software Moderno, USFQ**
 
-Implementación y comprobación de cuatro casos de arquitectura dirigida por eventos con Java 21, Spring Boot y RabbitMQ.
+Implementación y evaluación de una arquitectura dirigida por eventos con Java 21, Spring Boot y RabbitMQ.
 
-## Entrega
+## Evaluación de criterios EDA con RabbitMQ
+
+- [Informe: tabla de resultados, cinco respuestas y conclusión](laboratorio-eda/INFORME-CRITERIOS-EDA.md)
+- [Evidencias de las cuatro actividades](laboratorio-eda/evidencias/criterios-eda/)
+
+Pruebas de stock bajo, stock suficiente, consumidor detenido y consumidor reanudado. La cola de recomendaciones pasó de 0 a 2 mensajes y volvió a 0 al procesarse los eventos pendientes.
+
+## Resiliencia y evolución EDA
 
 - [Informe: resultados, respuestas y conclusión](laboratorio-eda/INFORME.md)
 - [Código y guía del laboratorio](laboratorio-eda/)
