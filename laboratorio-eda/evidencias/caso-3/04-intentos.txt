@@ -1,0 +1,3 @@
+recommendation-service-1  | 2026-11-24T19:50:12.455Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : INTENTO_PROCESAMIENTO eventId=6282cdb2-bab6-4567-ac05-cc96d687a748 sku=FAIL-TEST intento=1/3
+recommendation-service-1  | 2026-11-24T19:50:13.458Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : INTENTO_PROCESAMIENTO eventId=6282cdb2-bab6-4567-ac05-cc96d687a748 sku=FAIL-TEST intento=2/3
+recommendation-service-1  | 2026-11-24T19:50:14.459Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : INTENTO_PROCESAMIENTO eventId=6282cdb2-bab6-4567-ac05-cc96d687a748 sku=FAIL-TEST intento=3/3

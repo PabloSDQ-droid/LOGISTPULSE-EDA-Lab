@@ -1,0 +1,81 @@
+recommendation-service-1  | 
+recommendation-service-1  |   .   ____          _            __ _ _
+recommendation-service-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+recommendation-service-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+recommendation-service-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+recommendation-service-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+recommendation-service-1  |  =========|_|==============|___/=/_/_/_/
+recommendation-service-1  | 
+recommendation-service-1  |  :: Spring Boot ::                (v3.5.6)
+recommendation-service-1  | 
+recommendation-service-1  | 2026-11-24T18:50:31.383Z  INFO 1 --- [           main] e.u.l.r.RecommendationApplication        : Starting RecommendationApplication v1.0.0 using Java 21.0.13.1 with PID 1 (/app/app.jar started by root in /app)
+recommendation-service-1  | 2026-11-24T18:50:31.400Z  INFO 1 --- [           main] e.u.l.r.RecommendationApplication        : No active profile set, falling back to 1 default profile: "default"
+recommendation-service-1  | 2026-11-24T18:50:37.502Z  INFO 1 --- [           main] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [rabbitmq:5672]
+recommendation-service-1  | 2026-11-24T18:50:37.549Z  INFO 1 --- [           main] o.s.a.r.l.SimpleMessageListenerContainer : Broker not available; cannot force queue declarations during start: java.net.ConnectException: Connection refused (connect failed)
+recommendation-service-1  | 2026-11-24T18:50:37.568Z  INFO 1 --- [ntContainer#0-1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [rabbitmq:5672]
+recommendation-service-1  | 2026-11-24T18:50:37.571Z ERROR 1 --- [ntContainer#0-1] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+recommendation-service-1  | 
+recommendation-service-1  | org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused (connect failed)
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:61) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:632) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:726) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2261) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2234) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2214) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueInfo(RabbitAdmin.java:467) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueProperties(RabbitAdmin.java:451) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.attemptDeclarations(AbstractMessageListenerContainer.java:1972) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.redeclareElementsIfNecessary(AbstractMessageListenerContainer.java:1936) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1489) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1328) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at java.base/java.lang.Thread.run(Unknown Source) ~[na:na]
+recommendation-service-1  | Caused by: java.net.ConnectException: Connection refused (connect failed)
+recommendation-service-1  | 	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+recommendation-service-1  | 	at java.base/sun.nio.ch.Net.pollConnectNow(Unknown Source) ~[na:na]
+recommendation-service-1  | 	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(Unknown Source) ~[na:na]
+recommendation-service-1  | 	at java.base/sun.nio.ch.NioSocketImpl.connect(Unknown Source) ~[na:na]
+recommendation-service-1  | 	at java.base/java.net.SocksSocketImpl.connect(Unknown Source) ~[na:na]
+recommendation-service-1  | 	at java.base/java.net.Socket.connect(Unknown Source) ~[na:na]
+recommendation-service-1  | 	at com.rabbitmq.client.impl.SocketFrameHandlerFactory.create(SocketFrameHandlerFactory.java:61) ~[amqp-client-5.25.0.jar!/:5.25.0]
+recommendation-service-1  | 	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1249) ~[amqp-client-5.25.0.jar!/:5.25.0]
+recommendation-service-1  | 	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198) ~[amqp-client-5.25.0.jar!/:5.25.0]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:678) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:647) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:593) ~[spring-rabbit-3.2.7.jar!/:3.2.7]
+recommendation-service-1  | 	... 12 common frames omitted
+recommendation-service-1  | 
+recommendation-service-1  | 2026-11-24T18:50:37.599Z  INFO 1 --- [ntContainer#0-1] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [rabbitmq:5672]
+recommendation-service-1  | 2026-11-24T18:50:37.742Z  INFO 1 --- [           main] e.u.l.r.RecommendationApplication        : Started RecommendationApplication in 8.457 seconds (process running for 10.312)
+recommendation-service-1  | 2026-11-24T18:50:42.610Z  WARN 1 --- [ntContainer#0-1] o.s.a.r.l.SimpleMessageListenerContainer : Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused (connect failed)
+recommendation-service-1  | 2026-11-24T18:50:42.617Z  INFO 1 --- [ntContainer#0-1] o.s.a.r.l.SimpleMessageListenerContainer : Restarting Consumer@1e8ab90f: tags=[[]], channel=null, acknowledgeMode=AUTO local queue size=0
+recommendation-service-1  | 2026-11-24T18:50:42.618Z  INFO 1 --- [ntContainer#0-2] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [rabbitmq:5672]
+recommendation-service-1  | 2026-11-24T18:50:42.682Z  INFO 1 --- [ntContainer#0-2] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#2b917fb0:3/SimpleConnection@43780eb [delegate=amqp://lab@172.18.0.2:5672/, localPort=37262]
+recommendation-service-1  | 2026-11-24T18:59:55.922Z  INFO 1 --- [ntContainer#0-2] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=7a272eb7-7aea-4fd7-8812-bdcc60890f71 sku=CAF-500 location=QUITO-CENTRO available=4 minimum=10 action=Revisar compra o transferencia
+recommendation-service-1  | 2026-11-24T19:02:03.631Z  INFO 1 --- [ntContainer#0-3] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+recommendation-service-1  | 2026-11-24T19:02:03.945Z  INFO 1 --- [ntContainer#0-3] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+recommendation-service-1  | 
+recommendation-service-1  |   .   ____          _            __ _ _
+recommendation-service-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+recommendation-service-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+recommendation-service-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+recommendation-service-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+recommendation-service-1  |  =========|_|==============|___/=/_/_/_/
+recommendation-service-1  | 
+recommendation-service-1  |  :: Spring Boot ::                (v3.5.6)
+recommendation-service-1  | 
+recommendation-service-1  | 2026-11-24T19:04:49.105Z  INFO 1 --- [           main] e.u.l.r.RecommendationApplication        : Starting RecommendationApplication v1.0.0 using Java 21.0.13.1 with PID 1 (/app/app.jar started by root in /app)
+recommendation-service-1  | 2026-11-24T19:04:49.118Z  INFO 1 --- [           main] e.u.l.r.RecommendationApplication        : No active profile set, falling back to 1 default profile: "default"
+recommendation-service-1  | 2026-11-24T19:04:51.411Z  INFO 1 --- [           main] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [rabbitmq:5672]
+recommendation-service-1  | 2026-11-24T19:04:51.488Z  INFO 1 --- [           main] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#2b917fb0:0/SimpleConnection@7aac8884 [delegate=amqp://lab@172.18.0.2:5672/, localPort=35166]
+recommendation-service-1  | 2026-11-24T19:04:51.613Z  INFO 1 --- [           main] e.u.l.r.RecommendationApplication        : Started RecommendationApplication in 3.838 seconds (process running for 5.039)
+recommendation-service-1  | 2026-11-24T19:04:51.755Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=dff942ed-44fe-4ed0-a301-367f6d2a8871 sku=CAF-1 location=QUITO-CENTRO available=2 minimum=10 action=Revisar compra o transferencia
+recommendation-service-1  | 2026-11-24T19:04:51.773Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=8f218456-a800-4a7f-b85a-43e23f7de9b0 sku=CAF-2 location=QUITO-CENTRO available=2 minimum=10 action=Revisar compra o transferencia
+recommendation-service-1  | 2026-11-24T19:04:51.776Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=f5054e3a-a900-4786-aece-476d19ca325c sku=CAF-3 location=QUITO-CENTRO available=2 minimum=10 action=Revisar compra o transferencia
+recommendation-service-1  | 2026-11-24T19:04:51.777Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=8efee5a1-c0d5-441f-bcb3-2e01163123de sku=CAF-4 location=QUITO-CENTRO available=2 minimum=10 action=Revisar compra o transferencia
+recommendation-service-1  | 2026-11-24T19:04:51.777Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=b88de58f-95e6-4b63-b597-70ecb992eb56 sku=CAF-5 location=QUITO-CENTRO available=2 minimum=10 action=Revisar compra o transferencia
+recommendation-service-1  | 2026-11-24T19:04:51.779Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=d88ea92c-9371-4274-9081-6857871ca8ba sku=CAF-6 location=QUITO-CENTRO available=2 minimum=10 action=Revisar compra o transferencia
+recommendation-service-1  | 2026-11-24T19:04:51.785Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=4e15c35c-92eb-4089-8777-d0a274731c6b sku=CAF-7 location=QUITO-CENTRO available=2 minimum=10 action=Revisar compra o transferencia
+recommendation-service-1  | 2026-11-24T19:04:51.793Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=837606c4-0e11-4822-a220-000c164464c8 sku=CAF-8 location=QUITO-CENTRO available=2 minimum=10 action=Revisar compra o transferencia
+recommendation-service-1  | 2026-11-24T19:04:51.794Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=e2b92608-475b-4334-bf82-b038aa30298c sku=CAF-9 location=QUITO-CENTRO available=2 minimum=10 action=Revisar compra o transferencia
+recommendation-service-1  | 2026-11-24T19:04:51.796Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=e6891ff1-b146-497c-9f07-666ad85d1f47 sku=CAF-10 location=QUITO-CENTRO available=2 minimum=10 action=Revisar compra o transferencia

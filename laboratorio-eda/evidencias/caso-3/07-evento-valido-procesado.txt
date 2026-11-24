@@ -1,0 +1,1 @@
+recommendation-service-1  | 2026-11-24T19:52:34.027Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=f5168465-96a0-4438-8535-223bb7a5b712 sku=CAF-OK location=QUITO-CENTRO available=4 minimum=10 action=Revisar compra o transferencia

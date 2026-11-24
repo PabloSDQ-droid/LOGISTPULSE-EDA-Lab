@@ -1,0 +1,13 @@
+{
+  "properties": {
+    "content_type": "application/json",
+    "delivery_mode": 2,
+    "message_id": "03d12c20-9f5c-4e91-b924-9d7f81eb3cce",
+    "headers": {
+      "__TypeId__": "edu.usfq.logistpulse.contract.StockoutRiskDetected"
+    }
+  },
+  "routing_key": "inventory.stockout-risk.detected",
+  "payload": "{\"eventId\": \"03d12c20-9f5c-4e91-b924-9d7f81eb3cce\", \"occurredAt\": \"2026-11-24T20:14:13.703605+00:00\", \"sku\": \"CAF-DUPLICADO\", \"location\": \"QUITO-CENTRO\", \"available\": 4, \"minimum\": 10}",
+  "payload_encoding": "string"
+}
