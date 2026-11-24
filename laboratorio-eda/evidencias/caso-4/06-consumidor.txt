@@ -1,0 +1,6 @@
+recommendation-service-1  | 2026-11-24T20:15:43.412Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : EVENTO_RECIBIDO eventId=03d12c20-9f5c-4e91-b924-9d7f81eb3cce sku=CAF-DUPLICADO
+recommendation-service-1  | 2026-11-24T20:15:43.414Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : INTENTO_PROCESAMIENTO eventId=03d12c20-9f5c-4e91-b924-9d7f81eb3cce sku=CAF-DUPLICADO intento=1/3
+recommendation-service-1  | 2026-11-24T20:15:43.418Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : RECOMENDACION_PENDIENTE eventId=03d12c20-9f5c-4e91-b924-9d7f81eb3cce sku=CAF-DUPLICADO location=QUITO-CENTRO available=4 minimum=10 action=Revisar compra o transferencia
+recommendation-service-1  | 2026-11-24T20:15:43.430Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : EVENTO_RECIBIDO eventId=03d12c20-9f5c-4e91-b924-9d7f81eb3cce sku=CAF-DUPLICADO
+recommendation-service-1  | 2026-11-24T20:15:43.430Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : INTENTO_PROCESAMIENTO eventId=03d12c20-9f5c-4e91-b924-9d7f81eb3cce sku=CAF-DUPLICADO intento=1/3
+recommendation-service-1  | 2026-11-24T20:15:43.431Z  INFO 1 --- [ntContainer#0-1] e.u.l.r.StockoutRiskListener             : EVENTO_DUPLICADO_IGNORADO eventId=03d12c20-9f5c-4e91-b924-9d7f81eb3cce sku=CAF-DUPLICADO

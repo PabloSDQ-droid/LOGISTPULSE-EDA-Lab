@@ -13,10 +13,23 @@ public class StockoutRiskListener {
     private static final Logger log =
             LoggerFactory.getLogger(StockoutRiskListener.class);
 
+    private final RecommendationStore store;
+
+    public StockoutRiskListener(RecommendationStore store) {
+        this.store = store;
+    }
+
     @RabbitListener(queues = RabbitConfig.QUEUE)
     public void handle(StockoutRiskDetected event) {
         RetryContext context = RetrySynchronizationManager.getContext();
         int attempt = context == null ? 1 : context.getRetryCount() + 1;
+
+        if (attempt == 1) {
+            log.info(
+                    "EVENTO_RECIBIDO eventId={} sku={}",
+                    event.eventId(), event.sku()
+            );
+        }
 
         log.info(
                 "INTENTO_PROCESAMIENTO eventId={} sku={} intento={}/3",
@@ -27,6 +40,14 @@ public class StockoutRiskListener {
             throw new IllegalStateException(
                     "Fallo controlado para FAIL-TEST"
             );
+        }
+
+        if (!store.saveIfAbsent(event)) {
+            log.info(
+                    "EVENTO_DUPLICADO_IGNORADO eventId={} sku={}",
+                    event.eventId(), event.sku()
+            );
+            return;
         }
 
         log.info(
