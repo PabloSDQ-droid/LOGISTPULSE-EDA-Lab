@@ -1,0 +1,6 @@
+HTTP/1.1 200 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Tue, 24 Nov 2026 22:09:53 GMT
+
+{"sku":"CAF-500","location":"QUITO-CENTRO","available":15,"minimum":10,"riskDetected":false,"eventId":null,"message":"Stock dentro del nivel esperado"}
